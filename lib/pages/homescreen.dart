@@ -4,16 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class Homescreen extends StatelessWidget {
-  Homescreen({super.key});
+  const Homescreen({super.key});
 
+  @override
+  Widget build(BuildContext context) {
   double expense = 0;
   double income = 0;
   double balance = 0;
 
-
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),

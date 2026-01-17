@@ -1,6 +1,7 @@
 import 'package:expense_tracker/components/itemdisplay.dart';
 import 'package:expense_tracker/models/expense_category.dart';
 import 'package:expense_tracker/models/income_category.dart';
+import 'package:expense_tracker/pages/details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -68,7 +69,7 @@ class Categoryselection extends StatelessWidget {
                   final category = expenseCategoryMeta[index];
                   return InkWell(
                     onTap: () {
-                      //place holder
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder:(_) => Details(icon: category.icon, isExpense: category.isExpense, label: category.label)));
                     },
                     borderRadius: BorderRadius.circular(20),
                     focusColor: Colors.orange,
@@ -121,7 +122,7 @@ class Categoryselection extends StatelessWidget {
                   final category = incomeCategoryMeta[index];
                   return InkWell(
                     onTap: () {
-                      
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder:(_) => Placeholder()));
                     },
                     borderRadius: BorderRadius.circular(20),
                     focusColor: Colors.orange,
