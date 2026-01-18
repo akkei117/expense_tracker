@@ -1,23 +1,58 @@
 import 'package:expense_tracker/components/dashboard.dart';
+import 'package:expense_tracker/components/infotile.dart';
+import 'package:expense_tracker/models/infomodel.dart';
+import 'package:expense_tracker/pages/categoryselection.dart';
+// import 'package:expense_tracker/pages/details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
 
   @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  List<Infomodel> infolist = [
+    Infomodel(
+      amount: "600",
+      icon: Icons.other_houses,
+      isExpense: true,
+      label: "Welcome",
+    ),
+  ];
+
+  void deleteinfo(int index) {
+    setState(() {
+      infolist.removeAt(index);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-  double expense = 0;
-  double income = 0;
-  double balance = 0;
+    //dashboard items
+    double expense = 0;
+    double income = 0;
+    double balance = 0;
+
+    //list of items
 
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
         child: InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, '/categorysel');
+          onTap: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => Categoryselection()),
+            );
+
+            if (result != null) {
+              infolist.add(result);
+              setState(() {});
+            }
           },
           highlightColor: Colors.deepOrange,
           borderRadius: BorderRadius.circular(20),
@@ -86,6 +121,16 @@ class Homescreen extends StatelessWidget {
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(20),
+                ),
+
+                child: ListView.builder(
+                  itemCount: infolist.length,
+                  itemBuilder: (BuildContext context, index) {
+                    return Infotile(
+                      infomodel: infolist[index],
+                      deletetile: () => deleteinfo(index),
+                    );
+                  },
                 ),
               ),
             ),

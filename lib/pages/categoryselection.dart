@@ -5,9 +5,14 @@ import 'package:expense_tracker/pages/details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Categoryselection extends StatelessWidget {
+class Categoryselection extends StatefulWidget {
   const Categoryselection({super.key});
 
+  @override
+  State<Categoryselection> createState() => _CategoryselectionState();
+}
+
+class _CategoryselectionState extends State<Categoryselection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,8 +73,21 @@ class Categoryselection extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final category = expenseCategoryMeta[index];
                   return InkWell(
-                    onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder:(_) => Details(icon: category.icon, isExpense: category.isExpense, label: category.label)));
+                    onTap: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => Details(
+                            icon: category.icon,
+                            isExpense: category.isExpense,
+                            label: category.label,
+                          ),
+                        ),
+                      );
+
+                      if (result != null) {
+                        Navigator.pop(context, result);
+                      }
                     },
                     borderRadius: BorderRadius.circular(20),
                     focusColor: Colors.orange,
@@ -121,8 +139,22 @@ class Categoryselection extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final category = incomeCategoryMeta[index];
                   return InkWell(
-                    onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder:(_) => Placeholder()));
+                    onTap: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => Details(
+                            icon: category.icon,
+                            isExpense: category.isExpense,
+                            label: category.label,
+                          ),
+                        ),
+                      );
+
+                      if (result != null) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context, result); // send back to Home
+                      }
                     },
                     borderRadius: BorderRadius.circular(20),
                     focusColor: Colors.orange,

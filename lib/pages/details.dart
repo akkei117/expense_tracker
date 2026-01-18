@@ -1,3 +1,4 @@
+import 'package:expense_tracker/models/infomodel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,11 +19,20 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  final TextEditingController amount = TextEditingController();
+  late TextEditingController amount;
+  late TextEditingController description;
+
+  @override
+  void initState() {
+    amount = .new();
+    description = .new();
+    super.initState();
+  }
 
   @override
   void dispose() {
     amount.dispose();
+    description.dispose();
     super.dispose();
   }
 
@@ -45,9 +55,16 @@ class _DetailsState extends State<Details> {
               borderRadius: BorderRadius.circular(20),
               splashColor: Colors.deepOrange,
               onTap: () {
-                
+                final model = Infomodel(
+                  amount: amount.text,
+                  icon: widget.icon,
+                  isExpense: widget.isExpense,
+                  label: widget.label,
+                );
+
+                Navigator.pop(context, model);
               },
-              
+
               child: Container(
                 padding: EdgeInsets.all(width * 0.025),
                 decoration: BoxDecoration(
@@ -59,7 +76,7 @@ class _DetailsState extends State<Details> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Icon(
-                  Icons.add,
+                  Icons.save,
                   size: iconSize,
                   color: const Color.fromRGBO(15, 15, 15, 1),
                 ),
@@ -89,8 +106,9 @@ class _DetailsState extends State<Details> {
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: EdgeInsets.all(width * 0.06),
-              child: Column(
+              child: ListView(
                 children: [
+                  //icon and category
                   Row(
                     children: [
                       Container(
@@ -123,7 +141,7 @@ class _DetailsState extends State<Details> {
                   ),
 
                   SizedBox(height: width * 0.15),
-
+                  //type of amount(Expense , income)
                   Row(
                     children: [
                       Text(
@@ -160,6 +178,7 @@ class _DetailsState extends State<Details> {
                       SizedBox(width: width * 0.05),
                       Expanded(
                         child: TextField(
+                          cursorColor: Colors.orange,
                           controller: amount,
                           keyboardType: const TextInputType.numberWithOptions(
                             decimal: true,
@@ -196,6 +215,15 @@ class _DetailsState extends State<Details> {
                         ),
                       ),
                     ],
+                  ),
+
+                  Padding(
+                    padding: .symmetric(vertical: width * 0.06),
+                    child: Divider(
+                      color: .fromRGBO(15, 15, 15, 1),
+                      radius: BorderRadius.circular(5),
+                      thickness: 2,
+                    ),
                   ),
                 ],
               ),
