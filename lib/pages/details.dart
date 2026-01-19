@@ -22,6 +22,9 @@ class _DetailsState extends State<Details> {
   late TextEditingController amount;
   late TextEditingController description;
 
+  bool isEmpty = false;
+  
+
   @override
   void initState() {
     amount = .new();
@@ -176,6 +179,7 @@ class _DetailsState extends State<Details> {
                         ),
                       ),
                       SizedBox(width: width * 0.05),
+
                       Expanded(
                         child: TextField(
                           cursorColor: Colors.orange,
