@@ -26,7 +26,7 @@ class _DetailsState extends State<Details> {
   
 
   @override
-  void initState() {
+  void initState() {    
     amount = .new();
     description = .new();
     super.initState();

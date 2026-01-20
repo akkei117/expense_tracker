@@ -57,7 +57,7 @@ class Infotile extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  infomodel.amount,
+                  "₹ ${infomodel.amount}",
                   style: GoogleFonts.inter(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,

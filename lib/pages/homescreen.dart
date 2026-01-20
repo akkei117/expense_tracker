@@ -2,7 +2,6 @@ import 'package:expense_tracker/components/dashboard.dart';
 import 'package:expense_tracker/components/infotile.dart';
 import 'package:expense_tracker/models/infomodel.dart';
 import 'package:expense_tracker/pages/categoryselection.dart';
-// import 'package:expense_tracker/pages/details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -15,9 +14,10 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  //list of items
   List<Infomodel> infolist = [
     Infomodel(
-      amount: "600",
+      amount: "0",
       icon: Icons.other_houses,
       isExpense: true,
       label: "Welcome",
@@ -35,9 +35,19 @@ class _HomescreenState extends State<Homescreen> {
     //dashboard items
     double expense = 0;
     double income = 0;
-    double balance = 0;
+    
+    for (final item in infolist) {
+      final value = double.tryParse(item.amount);
+       if(item.isExpense == true) {
+        expense = expense + value!;
+      }
+       else {
+        income = income + value!;
+      }
 
-    //list of items
+      
+    }
+    double balance = income - expense;
 
     return Scaffold(
       floatingActionButton: Padding(
